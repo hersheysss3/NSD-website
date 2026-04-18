@@ -1,6 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield, PawPrint } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
+
+// Animated counter hook
+const useCountUp = (end, duration = 2000, startOnView = true) => {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(!startOnView);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!startOnView) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setHasStarted(true); },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [startOnView]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+    let startTime = null;
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * end));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [hasStarted, end, duration]);
+
+  return [count, ref];
+};
 
 // Hero Imagessrc/assets/home2.jpg
 import home2 from "../assets/home2.jpg";
@@ -57,6 +89,22 @@ import partner1 from "../assets/1.jpg";
 import partner2 from "../assets/2.jpg";
 import partner3 from "../assets/3.jpg";
 import partner4 from "../assets/4.jpg";
+
+// Animated stat card component
+const StatCard = ({ icon, end, suffix, label }) => {
+  const [count, ref] = useCountUp(end);
+  return (
+    <div ref={ref} className="glass-solid p-8 text-center">
+      <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+        {icon}
+      </div>
+      <div className="text-4xl font-bold text-orange-500 mb-2 tabular-nums">
+        {count}{suffix}
+      </div>
+      <div className="text-gray-600 font-medium">{label}</div>
+    </div>
+  );
+};
 
 function Home() {
     const navigate = useNavigate();
@@ -229,48 +277,20 @@ function Home() {
             </section>
 
             {/* Enhanced Stats Section */}
-            <section className="py-20 bg-gradient-to-br from-orange-50 to-orange-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="py-20 bg-gradient-to-br from-orange-50 to-orange-100 relative overflow-hidden">
+                <div className="blob-orb-1 -top-20 -left-20 opacity-20"></div>
+                <div className="blob-orb-2 -bottom-20 -right-20 opacity-20"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Impact in Numbers</h2>
                         <p className="text-xl text-gray-600">Making a difference, one life at a time</p>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-6 stagger-children">
-                        <div className="glass-solid p-8 text-center">
-                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Heart className="w-8 h-8 text-orange-500" />
-                            </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">950+</div>
-                            <div className="text-gray-600 font-medium">Rescue Cases</div>
-                        </div>
-                        <div className="glass-solid p-8 text-center">
-                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Award className="w-8 h-8 text-orange-500" />
-                            </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">500+</div>
-                            <div className="text-gray-600 font-medium">Adoptions</div>
-                        </div>
-                        <div className="glass-solid p-8 text-center">
-                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Shield className="w-8 h-8 text-orange-500" />
-                            </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">3000+</div>
-                            <div className="text-gray-600 font-medium">Radium Belts Distributed</div>
-                        </div>
-                        <div className="glass-solid p-8 text-center">
-                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Users className="w-8 h-8 text-orange-500" />
-                            </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">150+</div>
-                            <div className="text-gray-600 font-medium">Volunteer Team</div>
-                        </div>
-                        <div className="glass-solid p-8 text-center">
-                            <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Globe className="w-8 h-8 text-orange-500" />
-                            </div>
-                            <div className="text-4xl font-bold text-orange-500 mb-2">5k+</div>
-                            <div className="text-gray-600 font-medium">Community Members</div>
-                        </div>
+                        <StatCard icon={<Heart className="w-8 h-8 text-orange-500" />} end={950} suffix="+" label="Rescue Cases" />
+                        <StatCard icon={<Award className="w-8 h-8 text-orange-500" />} end={500} suffix="+" label="Adoptions" />
+                        <StatCard icon={<Shield className="w-8 h-8 text-orange-500" />} end={3000} suffix="+" label="Radium Belts Distributed" />
+                        <StatCard icon={<Users className="w-8 h-8 text-orange-500" />} end={150} suffix="+" label="Volunteer Team" />
+                        <StatCard icon={<Globe className="w-8 h-8 text-orange-500" />} end={5} suffix="k+" label="Community Members" />
                     </div>
                 </div>
             </section>

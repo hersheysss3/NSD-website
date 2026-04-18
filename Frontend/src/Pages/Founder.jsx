@@ -1,33 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-const defaultAvatar = '../assets/1.jpg'; 
+import founderImg from '../assets/founderimg.png';
 
 export default function Founder() {
   return (
-    <div className="bg-orange-50 min-h-screen w-full flex flex-col md:flex-row items-center justify-center pt-8 pb-16 md:pb-24">
-      <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-center gap-0 md:gap-8">
+    <div className="bg-gradient-to-br from-amber-200 via-amber-50 to-amber-200 min-h-screen w-full flex flex-col md:flex-row items-center justify-center pt-8 pb-16 md:pb-24 relative overflow-hidden">
+      <div className="blob-orb-1 -top-40 -left-40 opacity-40"></div>
+      <div className="blob-orb-3 top-1/3 right-10 opacity-30"></div>
+      <div className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-center gap-0 md:gap-8 relative z-10">
         <motion.div
           className="w-full md:w-[48%] flex items-center justify-center relative"
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          style={{ minHeight: '400px', marginTop: '-500px' }}
         >
           <img
-            src={defaultAvatar}
+            src={founderImg}
             alt="Aniruddh Lakha"
-            className="rounded-3xl shadow-2xl w-[90vw] max-w-[500px] h-[340px] md:h-[540px] object-cover object-center"
-            style={{ borderRadius: '1.5rem' }}
+            className="rounded-3xl shadow-2xl w-[90vw] max-w-[500px] h-[340px] md:h-[540px] object-cover object-center glass-solid"
           />
-          <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
         </motion.div>
         <motion.div
           className="flex-1 flex flex-col justify-center px-4 md:px-10 w-full"
           initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-          style={{ margin: 0, padding: 0 }}
         >
           <div className="mb-2 text-center md:text-left">
             <span className="block text-3xl md:text-4xl font-extrabold text-orange-600 mb-1">
@@ -43,19 +40,10 @@ export default function Founder() {
           </h1>
           <div className="glass-solid p-6 md:p-8 text-gray-700 text-lg text-left space-y-4 max-w-2xl mx-auto">
             <p>
-              I’m Anirudh Lakha, the founder of Nagpur Street Dogs (NSD), and I started this journey back in 2020 when I was just 16 years old. Since childhood, I’ve always been a dog lover, but due to family restrictions, I was never allowed to keep dogs at home. So, I found my companions on the streets—playing, bonding, and spending time with street dogs in my area.
+              I'm Aniruddh Lakha, founder of Nagpur Street Dogs (NSD). I started this journey in 2020 at just 16 years old. During the COVID-19 lockdown, I saw street animals starving and decided to step up — feeding 10–15 dogs in my area, which grew to over 150.
             </p>
             <p>
-              During the first wave of COVID-19, when the entire country went into lockdown, I witnessed something heartbreaking. The street animals who depended on local shops and restaurants for their daily meals were left starving. That was the moment I decided to step up. I began feeding 10–15 dogs in my locality, and without even realizing it, that number grew to over 150.
-            </p>
-            <p>
-              In 2022, a friend suggested I share my efforts on Instagram. That one suggestion changed everything. Gradually, people began to notice and support the cause. I found a team, and we started handling rescue cases together. From a one-man initiative, we grew to a dedicated team of over 100 volunteers.
-            </p>
-            <p>
-              Together, we’ve launched several impactful initiatives in Nagpur—like Free Water Pot Distribution in 2022, Feeding Drives and Vaccination Camps in 2023, and the Radium Belt Project, which helped reduce street animal accidents by 30–40%. In 2024 and beyond, we continue expanding our efforts with the same passion and commitment.
-            </p>
-            <p>
-              Today, I’m no longer alone in this mission. I’m joined by incredible individuals who care deeply about animals, just like I do. I may have started this journey, but the impact we’ve created is the result of the collective dedication of my entire team. Together, we are building a safer, kinder world for street animals—one step at a time.
+              In 2022, we went public on Instagram, built a team of 100+ volunteers, and launched initiatives like Free Water Pot Distribution, Vaccination Camps, and the Radium Belt Project — reducing street animal accidents by 30–40%. Together, we're building a safer, kinder world for street animals — one step at a time.
             </p>
           </div>
         </motion.div>
@@ -63,4 +51,3 @@ export default function Founder() {
     </div>
   );
 }
-
