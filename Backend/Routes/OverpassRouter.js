@@ -26,7 +26,11 @@ router.get('/vet-clinics', async (req, res) => {
     const response = await fetch('https://overpass-api.de/api/interpreter', {
       method: 'POST',
       body: `data=${encodeURIComponent(query)}`,
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': 'NagpurStreetDogs/1.0 (https://nsd-website-oef9.vercel.app)',
+        'Accept': 'application/json',
+      },
     });
 
     if (!response.ok) {
