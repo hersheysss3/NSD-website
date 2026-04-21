@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ScrollAnimate from '../Animation/ScrollAnimate';
 import goodDoggy from "/home1.png";
 import { 
   ChevronDown, 
@@ -88,6 +89,7 @@ const AboutUs = () => {
     <section className="bg-gradient-to-br from-orange-200 via-orange-50 to-orange-200 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         {/* Hero Section */}
+        <ScrollAnimate animation="fade-up">
         <div className="text-center mb-16 md:mb-24">
           <div className="inline-flex items-center justify-center mb-4">
             <PawPrint className="w-8 h-8 text-orange-400 mr-2" />
@@ -102,9 +104,11 @@ const AboutUs = () => {
             We are a passionate community dedicated to rescuing, rehabilitating, and rehoming stray dogs with love, compassion, and professionalism.
           </p>
         </div>
+        </ScrollAnimate>
 
         {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16 md:mb-24">
+          <ScrollAnimate animation="fade-right">
           <div className="order-2 lg:order-1">
             <div className="glass-solid p-8 md:p-10">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 relative">
@@ -169,11 +173,13 @@ const AboutUs = () => {
               />
             </div>
           </div>
+          </ScrollAnimate>
         </div>
 
 
         {/* Our Vision & Mission - always visible */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
+          <ScrollAnimate animation="fade-right">
           <div className="glass-solid p-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-md">
@@ -194,6 +200,8 @@ const AboutUs = () => {
               We believe real change starts at the grassroots—with empathy, education, and action. Through Nagpur Street Dogs, we aspire to ignite that change and set an example for other cities to follow.
             </div>
           </div>
+          </ScrollAnimate>
+          <ScrollAnimate animation="fade-left" delay={200}>
           <div className="glass-solid p-8">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-md">
@@ -207,6 +215,7 @@ const AboutUs = () => {
               Through community-driven efforts, we aim to reduce suffering, prevent cruelty, and inspire responsible action among citizens. Our initiatives—like feeding drives, vaccination camps, radium belt installations, and water pot distributions—are designed not just to help animals survive, but to thrive. We believe in education, collaboration, and action as key tools to build a more inclusive and humane society.
             </div>
           </div>
+          </ScrollAnimate>
         </div>
 
         {/* Volunteers - still expandable */}
@@ -291,6 +300,7 @@ const AboutUs = () => {
         </div>
 
         {/* Call to Action */}
+        <ScrollAnimate animation="flip-up">
         <div className="mt-20 text-center glass-solid p-12 relative overflow-hidden pulse-glow">
           <div className="absolute -bottom-20 -right-20 w-64 h-64 glass-solid/10 rounded-full"></div>
           <div className="absolute -top-20 -left-20 w-64 h-64 glass-solid/10 rounded-full"></div>
@@ -319,6 +329,7 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
+        </ScrollAnimate>
       </div>
 
       <style jsx>{`

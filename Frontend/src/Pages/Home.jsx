@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield, PawPrint } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
+import ScrollAnimate from '../Animation/ScrollAnimate';
 
 // Animated counter hook
 const useCountUp = (end, duration = 2000, startOnView = true) => {
@@ -281,16 +282,18 @@ function Home() {
                 <div className="blob-orb-1 -top-20 -left-20 opacity-20"></div>
                 <div className="blob-orb-2 -bottom-20 -right-20 opacity-20"></div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Impact in Numbers</h2>
-                        <p className="text-xl text-gray-600">Making a difference, one life at a time</p>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6 stagger-children">
-                        <StatCard icon={<Heart className="w-8 h-8 text-orange-500" />} end={950} suffix="+" label="Rescue Cases" />
-                        <StatCard icon={<Award className="w-8 h-8 text-orange-500" />} end={500} suffix="+" label="Adoptions" />
-                        <StatCard icon={<Shield className="w-8 h-8 text-orange-500" />} end={3000} suffix="+" label="Radium Belts Distributed" />
-                        <StatCard icon={<Users className="w-8 h-8 text-orange-500" />} end={150} suffix="+" label="Volunteer Team" />
-                        <StatCard icon={<Globe className="w-8 h-8 text-orange-500" />} end={5} suffix="k+" label="Community Members" />
+                    <ScrollAnimate animation="fade-up">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Impact in Numbers</h2>
+                            <p className="text-xl text-gray-600">Making a difference, one life at a time</p>
+                        </div>
+                    </ScrollAnimate>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                        <ScrollAnimate animation="zoom-in" delay={0}><StatCard icon={<Heart className="w-8 h-8 text-orange-500" />} end={950} suffix="+" label="Rescue Cases" /></ScrollAnimate>
+                        <ScrollAnimate animation="zoom-in" delay={100}><StatCard icon={<Award className="w-8 h-8 text-orange-500" />} end={500} suffix="+" label="Adoptions" /></ScrollAnimate>
+                        <ScrollAnimate animation="zoom-in" delay={200}><StatCard icon={<Shield className="w-8 h-8 text-orange-500" />} end={3000} suffix="+" label="Radium Belts Distributed" /></ScrollAnimate>
+                        <ScrollAnimate animation="zoom-in" delay={300}><StatCard icon={<Users className="w-8 h-8 text-orange-500" />} end={150} suffix="+" label="Volunteer Team" /></ScrollAnimate>
+                        <ScrollAnimate animation="zoom-in" delay={400}><StatCard icon={<Globe className="w-8 h-8 text-orange-500" />} end={5} suffix="k+" label="Community Members" /></ScrollAnimate>
                     </div>
                 </div>
             </section>
@@ -299,40 +302,44 @@ function Home() {
             <section id="about" className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        <div className="relative">
-                            <img
-                                src={goodDoggy}
-                                alt="About us"
-                            />
-                            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
-                            <div className="absolute -top-8 -left-8 w-24 h-24 bg-orange-300 rounded-full opacity-20 -z-10"></div>
-                        </div>
-                        <div>
-                            <div className="mb-6">
-                                <span className="text-orange-500 font-semibold text-lg">Our Story</span>
-                                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-8">About Us</h2>
+                        <ScrollAnimate animation="fade-right">
+                            <div className="relative">
+                                <img
+                                    src={goodDoggy}
+                                    alt="About us"
+                                />
+                                <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
+                                <div className="absolute -top-8 -left-8 w-24 h-24 bg-orange-300 rounded-full opacity-20 -z-10"></div>
                             </div>
-                            <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
-                                <p>
-                                    Nagpur street dogs is a self funded youth community founded by a 16 year old boy in 2020.
-                                    We focus on providing food , medical care, free water pots every summer, shelter and many more to the animals in need.
-                                    Through our dedicated efforts, we aim to create a safer and kinder environment for street Animals.
-                                </p>
-                                <p>
-                                    We focus on providing comprehensive care including food, water, medical treatment, and shelter. Our dedicated team works tirelessly to make every summer and winter more comfortable for street animals while advocating for better policies to create a stable, nurturing environment for all animals in need.
-                                </p>
-                                <div className="flex items-center space-x-6 pt-4">
-                                    <div className="flex items-center">
-                                        <Heart className="w-6 h-6 text-orange-500 mr-2" />
-                                        <span className="font-semibold">Compassionate Care</span>
-                                    </div>
-                                    <div className="flex items-center">
-                                        <Users className="w-6 h-6 text-orange-500 mr-2" />
-                                        <span className="font-semibold">Community Driven</span>
+                        </ScrollAnimate>
+                        <ScrollAnimate animation="fade-left" delay={200}>
+                            <div>
+                                <div className="mb-6">
+                                    <span className="text-orange-500 font-semibold text-lg">Our Story</span>
+                                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-8">About Us</h2>
+                                </div>
+                                <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
+                                    <p>
+                                        Nagpur street dogs is a self funded youth community founded by a 16 year old boy in 2020.
+                                        We focus on providing food , medical care, free water pots every summer, shelter and many more to the animals in need.
+                                        Through our dedicated efforts, we aim to create a safer and kinder environment for street Animals.
+                                    </p>
+                                    <p>
+                                        We focus on providing comprehensive care including food, water, medical treatment, and shelter. Our dedicated team works tirelessly to make every summer and winter more comfortable for street animals while advocating for better policies to create a stable, nurturing environment for all animals in need.
+                                    </p>
+                                    <div className="flex items-center space-x-6 pt-4">
+                                        <div className="flex items-center">
+                                            <Heart className="w-6 h-6 text-orange-500 mr-2" />
+                                            <span className="font-semibold">Compassionate Care</span>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <Users className="w-6 h-6 text-orange-500 mr-2" />
+                                            <span className="font-semibold">Community Driven</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </ScrollAnimate>
                     </div>
                 </div>
             </section>
@@ -340,12 +347,14 @@ function Home() {
             {/* Enhanced Our Initiatives Section */}
             <section id="initiatives" className="py-24 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Initiatives</h2>
-                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                            Comprehensive programs designed to rescue, rehabilitate, and rehome street animals
-                        </p>
-                    </div>
+                    <ScrollAnimate animation="fade-up">
+                        <div className="text-center mb-16">
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Initiatives</h2>
+                            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                                Comprehensive programs designed to rescue, rehabilitate, and rehome street animals
+                            </p>
+                        </div>
+                    </ScrollAnimate>
 
                     <div className="relative">
                         <div className="overflow-hidden rounded-3xl shadow-2xl">
@@ -410,6 +419,7 @@ function Home() {
             <section id="donate" className="py-24 bg-gradient-to-br from-orange-50 via-white to-orange-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <ScrollAnimate animation="fade-right">
                         <div>
                             <div className="mb-8">
                                 <span className="text-orange-500 font-semibold text-lg">Make a Difference</span>
@@ -445,7 +455,9 @@ function Home() {
                                 </p>
                             </div>
                         </div>
+                        </ScrollAnimate>
 
+                        <ScrollAnimate animation="fade-left" delay={200}>
                         <div className="relative">
                             <img
                                 src={donateIntro}
@@ -454,6 +466,7 @@ function Home() {
                             />
                             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-200 rounded-full opacity-30 -z-10"></div>
                         </div>
+                        </ScrollAnimate>
                     </div>
                 </div>
             </section>
@@ -461,6 +474,7 @@ function Home() {
             {/* Enhanced WhatsApp Community Section */}
             <section className="py-20 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <ScrollAnimate animation="flip-up">
                     <div className="max-w-3xl mx-auto">
                         <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
                             Join Our Community
@@ -478,10 +492,12 @@ function Home() {
                             </button>
                         </div>
                     </div>
+                    </ScrollAnimate>
                 </div>
             </section>
             
             {/* Call to Action */}
+            <ScrollAnimate animation="zoom-in">
             <div className="mt-20 text-center bg-gradient-to-r from-orange-500 to-amber-500 text-white p-12 rounded-3xl shadow-2xl relative overflow-hidden">
                 <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white/10 rounded-full"></div>
                 <div className="absolute -top-20 -left-20 w-64 h-64 bg-white/10 rounded-full"></div>
@@ -506,10 +522,13 @@ function Home() {
                     </div>
                 </div>
             </div>
+            </ScrollAnimate>
 
             {/* Gallery Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+                <ScrollAnimate animation="fade-up">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center">Gallery</h2>
+                </ScrollAnimate>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-5 pb-16">
                     {/* Large featured photo */}
                     <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
@@ -557,21 +576,31 @@ function Home() {
 
             {/* Our Partners Section */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-24">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10 text-center">Our Partners</h2>
+                <ScrollAnimate animation="fade-up">
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10 text-center">Our Partners</h2>
+                </ScrollAnimate>
                 <div className="flex flex-wrap justify-center gap-8 md:gap-16 items-center">
                     {/* Partner logos using imported variables */}
+                    <ScrollAnimate animation="zoom-in" delay={0}>
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
                         <img src={partner1} alt="Partner 1" className="object-contain w-20 h-20 rounded-full" />
                     </div>
+                    </ScrollAnimate>
+                    <ScrollAnimate animation="zoom-in" delay={100}>
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
                         <img src={partner2} alt="Partner 2" className="object-contain w-20 h-20 rounded-full" />
                     </div>
+                    </ScrollAnimate>
+                    <ScrollAnimate animation="zoom-in" delay={200}>
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
                         <img src={partner3} alt="Partner 3" className="object-contain w-20 h-20 rounded-full" />
                     </div>
+                    </ScrollAnimate>
+                    <ScrollAnimate animation="zoom-in" delay={300}>
                     <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
                         <img src={partner4} alt="Partner 4" className="object-contain w-20 h-20 rounded-full" />
                     </div>
+                    </ScrollAnimate>
                 </div>
             </section>
 

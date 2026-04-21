@@ -17,31 +17,41 @@ import AddDogForm from './Components/AdoptForm.jsx'
 import DogDetailsPage from './Components/DogDetailsPage.jsx'
 import UserProfile from './Pages/UserPage.jsx'
 import Maps from './Pages/Maps.jsx'
+import ProtectedRoute from './Components/ProtectedRoute.jsx'
+
 function App() {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
         <Route path='/about' element={<About />} />
-        <Route
-          path='/donate'
-          element={<Donate />}
-        />
+        <Route path='/donate' element={<Donate />} />
         <Route path='/ourTeam' element={<OurTeam />} />
-        <Route path='/volunteer' element={<VolunteerPage />} />
+        <Route path='/volunteer' element={
+          <ProtectedRoute>
+            <VolunteerPage />
+          </ProtectedRoute>
+        } />
         <Route path='/founder' element={<Founder />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/signin' element={<Signin />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/community' element={<CommunityHome />} />
         <Route path='/blog/:id' element={<BlogId />} />
         <Route path="/:userId" element={<UserProfile/>}/>
         <Route path='/adopt' element={<AdoptDogsPage/>}/>
-      <Route path='/adopt-form' element={<AddDogForm/>}/>
+        <Route path='/adopt-form' element={
+          <ProtectedRoute>
+            <AddDogForm />
+          </ProtectedRoute>
+        }/>
         <Route path='/maps' element={<Maps/>}/>
       </Route>
-      <Route path='/editor' element={<EditorPage />} />  
-      
+      <Route path='/editor' element={
+        <ProtectedRoute>
+          <EditorPage />
+        </ProtectedRoute>
+      } />
+
       <Route path="/dog/:id" element={<DogDetailsPage />} />
     </Routes>
   );
