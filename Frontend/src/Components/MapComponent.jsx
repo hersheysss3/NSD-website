@@ -94,7 +94,7 @@ const MapComponent = () => {
 
     const fetchData = async () => {
       try {
-        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+        const backendUrl = import.meta.env.VITE_SERVER_DOMAIN || 'http://localhost:8000';
         const [lat, lng] = userLocation || mapCenter;
 
         // Fetch vet clinics from Overpass (via backend proxy)
@@ -164,7 +164,7 @@ const MapComponent = () => {
   const handleLostDogSubmit = async (e) => {
     e.preventDefault();
     try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+      const backendUrl = import.meta.env.VITE_SERVER_DOMAIN || 'http://localhost:8000';
       const response = await fetch(`${backendUrl}/api/lost-dogs`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -190,7 +190,7 @@ const MapComponent = () => {
   const handleClinicSubmit = async (e) => {
     e.preventDefault();
     try {
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+      const backendUrl = import.meta.env.VITE_SERVER_DOMAIN || 'http://localhost:8000';
       const response = await fetch(`${backendUrl}/api/vet-clinics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
