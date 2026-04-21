@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import AnimationWrapper from '../Animation/AnimationWrapper';
 import InPageNavigation from '../Components/Editor/InPageNavigation';
 import Blogcard from '../Components/Editor/BlogCard.jsx';
 import TrendingBlogcard from '../Components/Editor/TrendingBlogCard.jsx';
-// import FilterPaginationData from '../Components/FliterPaginationData';
+import ScrollAnimate from '../Animation/ScrollAnimate';
 
 // Fallback blog data for each category (used when backend is unavailable)
 const fallbackBlogs = [
@@ -278,6 +277,7 @@ const categories = [
                                     </>
                                 ) : (
                                     <>
+                                        <ScrollAnimate animation="fade-up">
                                         <div className="mb-8">
                                             <h1 className="text-4xl font-bold text-gray-800 mb-2 relative">
                                                 Latest Stories
@@ -285,6 +285,7 @@ const categories = [
                                             </h1>
                                             <p className="text-gray-600 mt-4">Fresh perspectives and inspiring stories from our community</p>
                                         </div>
+                                        </ScrollAnimate>
                                         {blogs.length > 0 ? (
                                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                                 {blogs.map((blog, index) => (
@@ -311,6 +312,7 @@ const categories = [
                         
                         {/* Trending Blogs */}
                         <div className="pt-8">
+                            <ScrollAnimate animation="fade-up">
                             <div className="mb-8">
                                 <h1 className="text-4xl font-bold text-gray-800 mb-2 relative">
                                     🔥 Trending Now
@@ -318,6 +320,7 @@ const categories = [
                                 </h1>
                                 <p className="text-gray-600 mt-4">Most popular stories this week</p>
                             </div>
+                            </ScrollAnimate>
                             {trendingBlogs.length > 0 ? (
                                 <div className="space-y-6">
                                     {trendingBlogs.map((blog, index) => (
@@ -344,6 +347,7 @@ const categories = [
             <aside className="lg:w-96 bg-white lg:border-l border-orange-200">
                 <div className="sticky top-0 p-6">
                     <div className="hidden lg:block mb-8">
+                        <ScrollAnimate animation="fade-left">
                         <div className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 rounded-2xl p-6 text-white mb-6">
                             <h2 className="text-2xl font-bold mb-2">Explore Topics</h2>
                             <p className="text-orange-100">Discover stories from all interests</p>
@@ -379,6 +383,7 @@ const categories = [
                                 ← Back to All Stories
                             </button>
                         )}
+                        </ScrollAnimate>
                     </div>
                     
                     <div className="bg-orange-50 rounded-2xl p-6 border border-orange-200">

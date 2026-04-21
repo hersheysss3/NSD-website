@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, MapPin, Heart, Filter, Phone, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ScrollAnimate from '../Animation/ScrollAnimate';
 import adopt1 from '../assets/adopt 1.jpeg';
 import adopt2 from '../assets/adopt 2.jpeg';
 
@@ -116,6 +117,7 @@ const AdoptDogsPage = () => {
       <div className="blob-orb-2 -bottom-40 -right-40 opacity-30"></div>
 
       {/* Header */}
+      <ScrollAnimate animation="fade-up">
       <div className="glass-navbar shadow-sm border-b border-orange-100 px-4 py-6 relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="mb-4 md:mb-0">
@@ -132,9 +134,11 @@ const AdoptDogsPage = () => {
           </div>
         </div>
       </div>
+      </ScrollAnimate>
 
       <div className="max-w-7xl mx-auto px-4 py-8 relative z-10">
         {/* Adoption Appeal Banner */}
+        <ScrollAnimate animation="zoom-in">
         <div className="glass-solid p-6 mb-8 text-center border border-orange-100">
           <Heart className="w-12 h-12 text-orange-500 mx-auto mb-3" />
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Adoption Appeal</h2>
@@ -142,11 +146,14 @@ const AdoptDogsPage = () => {
             These adorable puppies are looking for loving forever homes. If you're ready to open your heart and give a rescue dog the life they deserve, please reach out to us.
           </p>
         </div>
+        </ScrollAnimate>
 
         {/* Dogs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-          {dogs.map((dog) => (
-            <DogCard key={dog._id} dog={dog} />
+          {dogs.map((dog, index) => (
+            <ScrollAnimate key={dog._id} animation="fade-up" delay={index * 150}>
+              <DogCard dog={dog} />
+            </ScrollAnimate>
           ))}
         </div>
       </div>

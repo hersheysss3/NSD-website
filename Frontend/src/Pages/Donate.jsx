@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, Check, X, Loader2, CreditCard, Shield, Users } from 'lucide-react';
 import donateIntro from "/home2.png";
+import ScrollAnimate from '../Animation/ScrollAnimate';
 const volunteerPhotos = [
   "/DONATION PAGE/IMG-20250604-WA0012~2.jpg",
   "/DONATION PAGE/IMG-20250304-WA0025.jpg",
@@ -351,11 +352,16 @@ const Donate = () => {
 
       {/* Intro Section */}
       <section className="max-w-6xl mx-auto py-12 px-4">
-        <h2 className="text-2xl md:text-3xl text-center font-bold mb-10 text-[#E15519]">Together we can make a difference</h2>
+        <ScrollAnimate animation="fade-up">
+          <h2 className="text-2xl md:text-3xl text-center font-bold mb-10 text-[#E15519]">Together we can make a difference</h2>
+        </ScrollAnimate>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <ScrollAnimate animation="fade-right">
           <div className="flex justify-center">
             <img src={donateIntro} alt="Charity Work" className="rounded-2xl shadow-lg w-full max-w-[370px] object-cover" />
           </div>
+          </ScrollAnimate>
+          <ScrollAnimate animation="fade-left" delay={200}>
           <div className="flex flex-col items-center md:items-start">
             <h3 className="text-xl md:text-2xl font-bold mb-6 text-[#000000]">Be the reason of someone's smile</h3>
             
@@ -414,6 +420,7 @@ const Donate = () => {
               Want to know where your donation goes?
             </a>
           </div>
+          </ScrollAnimate>
         </div>
       </section>
 
@@ -425,6 +432,7 @@ const Donate = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <ScrollAnimate animation="fade-up">
           <div className="text-center mb-20">
             <div className="inline-flex items-center bg-white rounded-full px-6 py-2 mb-6 shadow-lg">
               <span className="text-orange-600 font-semibold">📸 GALLERY</span>
@@ -439,6 +447,7 @@ const Donate = () => {
               Capturing the joy and impact our volunteers create through shared moments of kindness and community
             </p>
           </div>
+          </ScrollAnimate>
 
                     {/* Enhanced Photo Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
