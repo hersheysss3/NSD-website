@@ -2,9 +2,9 @@ import { v2 as cloudinary } from 'cloudinary';
 
 // Configure with environment variables
 cloudinary.config({
-  cloud_name: "doczqznfj",
-  api_key: 653986957328288,
-  api_secret:"YAS8Mq-iEY_0OegAdfOWacCLn68",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 export default async function uploadImageCloudinary(buffer) {

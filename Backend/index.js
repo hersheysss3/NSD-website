@@ -13,6 +13,7 @@ import Donationrouter from "./Routes/DonationRouter.js";
 import vetClinicRouter from "./Routes/VetClinicRouter.js";
 import lostDogRouter from "./Routes/LostDogRouter.js";
 import overpassRouter from "./Routes/OverpassRouter.js";
+import { verifyToken } from "./Middleware/auth.js";
 import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path'
@@ -23,7 +24,6 @@ const __dirname = dirname(__filename);
 
 const app=express();
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
-app.use(cors());
 const allowedOrigins = [
   "http://localhost:5173",
   "https://wooferz.onrender.com"
@@ -78,7 +78,7 @@ app.get('/:userId', async (req, res) => {
 
 // Delete a dog
 // Delete a dog
-app.delete('/dog/:dogId', async (req, res) => {
+app.delete('/dog/:dogId', verifyToken, async (req, res) => {
   try {
     const { dogId } = req.params;
     const { userId } = req.body;
@@ -109,7 +109,7 @@ app.delete('/dog/:dogId', async (req, res) => {
 });
 
 // Delete a blog
-app.delete('/blog/:blogId', async (req, res) => {
+app.delete('/blog/:blogId', verifyToken, async (req, res) => {
   try {
     const { blogId } = req.params;
     const { userId } = req.body;

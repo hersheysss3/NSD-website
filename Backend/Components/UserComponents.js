@@ -80,7 +80,7 @@ export async function Register(req, res) {
       image: imageUrl,
     });
 
-    console.log("JWT Secret is:", process.env.JWT_SECRET);
+
     
     // Generate comprehensive JWT token
     const token = createUserToken(newUser);

@@ -9,6 +9,11 @@ lerna-debug.log*
 
 node_modules
 
+# Environment variables
+.env
+.env.backup
+.env.local
+
 dist
 dist-ssr
 *.local
