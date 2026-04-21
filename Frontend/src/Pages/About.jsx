@@ -107,46 +107,42 @@ const AboutUs = () => {
         </ScrollAnimate>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16 md:mb-24">
+        <div className="grid lg:grid-cols-2 gap-12 items-stretch mb-16 md:mb-24">
           <ScrollAnimate animation="fade-right">
-          <div className="order-2 lg:order-1">
-            <div className="glass-solid p-8 md:p-10">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 relative">
-                <span className="absolute -left-8 top-3 w-6 h-1 bg-orange-500 rounded-full"></span>
-                Our Story
-              </h2>
-              <div className="space-y-4">
-                <p className="text-gray-700 text-lg leading-relaxed">
-                  {showFullStory ? (
-                    <>
-                      <p>
-                        Nagpur Street Dogs was founded by a 16-year-old boy in 2020. It is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
-                      </p>
-                      <p className="mt-4">
-                        We work actively on the streets to rescue, rehabilitate, and care for injured, abandoned, and sick dogs. Beyond rescue, we focus on long-term impact through sterilization, vaccination drives, feeding programs, and awareness campaigns.<br/>
-                        NSD is the 1st group in Nagpur city to distribute free water pots every summer. Every summer, we run <b>free water pot distribution</b> drives across Nagpur to ensure that animals have access to clean drinking water during scorching heatwaves—a life-saving initiative supported by our incredible team and community collaborators.<br/>
-                        NSD is the only group to provide <b>Radium belts</b> to the street dogs to reduce the accident cases in Nagpur.
-                      </p>
-                      <p className="mt-4">
-                        Our strength lies in our passionate volunteers, everyday heroes who believe in kindness without conditions. We proudly collaborate with local cafés, small businesses, influencers, educational institutions, and socially conscious brands to build a better environment for our furry friends.
-                      </p>
-                      <p className="mt-4">
-                        At Nagpur Street Dogs, we believe that street animals are not a problem to be solved but lives to be protected. <b>Join us</b> in making Nagpur a safer, kinder place for all beings.
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
-                      <button onClick={() => setShowFullStory(true)} className="ml-2 text-orange-600 underline hover:text-orange-800 font-semibold">Read more</button>
-                    </>
-                  )}
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  
-                </p>
+          <div className="h-full">
+            <div className="glass-solid p-8 md:p-10 h-full flex flex-col justify-between">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 relative">
+                  <span className="absolute -left-8 top-3 w-6 h-1 bg-orange-500 rounded-full"></span>
+                  Our Story
+                </h2>
+                <div className="space-y-4">
+                  <p className="text-gray-700 text-lg leading-relaxed">
+                    {showFullStory ? (
+                      <>
+                        <p>
+                          Nagpur Street Dogs was founded by a 16-year-old boy in 2020. It is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
+                        </p>
+                        <p className="mt-4">
+                          We work actively on the streets to rescue, rehabilitate, and care for injured, abandoned, and sick dogs. Beyond rescue, we focus on long-term impact through sterilization, vaccination drives, feeding programs, and awareness campaigns.<br/>
+                          NSD is the 1st group in Nagpur city to distribute free water pots every summer. Every summer, we run <b>free water pot distribution</b> drives across Nagpur to ensure that animals have access to clean drinking water during scorching heatwaves—a life-saving initiative supported by our incredible team and community collaborators.<br/>
+                          NSD is the only group to provide <b>Radium belts</b> to the street dogs to reduce the accident cases in Nagpur.
+                        </p>
+                        <p className="mt-4">
+                          Our strength lies in our passionate volunteers, everyday heroes who believe in kindness without conditions. We proudly collaborate with local cafés, small businesses, influencers, educational institutions, and socially conscious brands to build a better environment for our furry friends.
+                        </p>
+                        <p className="mt-4">
+                          At Nagpur Street Dogs, we believe that street animals are not a problem to be solved but lives to be protected. <b>Join us</b> in making Nagpur a safer, kinder place for all beings.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        Nagpur Street Dogs was founded by 16 year boy in 2020 it is a self-funded youth-driven community dedicated to the welfare, protection, and dignity of street animals across Nagpur. Founded with compassion and driven by action, our mission is to give a voice to the voiceless and build a more humane world—one paw at a time.
+                        <button onClick={() => setShowFullStory(true)} className="ml-2 text-orange-600 underline hover:text-orange-800 font-semibold">Read more</button>
+                      </>
+                    )}
+                  </p>
+                </div>
               </div>
               <div className="mt-8 flex flex-wrap gap-4">
                 <div className="glass-solid px-4 py-2">
@@ -161,17 +157,16 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
+          </ScrollAnimate>
           
-          <div className="order-1 lg:order-2">
-            <div className="flex items-center justify-center h-80 md:h-96 bg-transparent">
-              <img
-                // src="/Good doggy-amico 3.png"
-                src={goodDoggy}
-                alt="About us"
-                className="w-full h-full object-contain"
-                style={{ maxWidth: '90%', maxHeight: '90%' }}
-              />
-            </div>
+          <ScrollAnimate animation="fade-left" delay={200}>
+          <div className="flex items-center justify-center h-full min-h-[400px] lg:min-h-full">
+            <img
+              src={goodDoggy}
+              alt="About us"
+              className="w-full h-full object-contain drop-shadow-xl"
+              style={{ maxWidth: '95%', maxHeight: '500px' }}
+            />
           </div>
           </ScrollAnimate>
         </div>
