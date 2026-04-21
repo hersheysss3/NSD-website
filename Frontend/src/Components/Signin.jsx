@@ -76,7 +76,7 @@ function Signin() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent mb-2">
               Welcome Back!
             </h1>
-            <p className="text-gray-600">Learn, grow and achieve your goals</p>
+            <p className="text-gray-600">Every paw deserves a helping hand 🐾</p>
           </div>
 
           <div className="space-y-6">

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-// import useAuth from "../Authentication/Authentication.jsx"
 import { AuthProvider } from '../Authentication/Authentication';
 import { useAuth } from '../Authentication/Authentication';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import toast from "react-hot-toast"
 
 // Mock components for demonstration
@@ -151,7 +150,7 @@ function Register() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent mb-2">
               Create Account
             </h1>
-            <p className="text-gray-600">Join our community and start learning</p>
+            <p className="text-gray-600">Be the voice for the voiceless 🐕</p>
           </div>
 
           {/* Avatar Upload */}
@@ -371,12 +370,12 @@ function Register() {
             <div className="mt-4">
               <p className="text-gray-600">
                 Already have an account?{' '}
-                <button
-                  onClick={() => alert('Navigate to sign in')}
+                <Link
+                  to="/signin"
                   className="text-orange-600 hover:text-orange-700 font-medium transition-colors duration-300 hover:underline"
                 >
                   Sign in here
-                </button>
+                </Link>
               </p>
             </div>
           </div>

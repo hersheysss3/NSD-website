@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, Users, Globe, Sparkles, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
+import ScrollAnimate from '../Animation/ScrollAnimate';
 
 function VolunteerPage() {
     const [formData, setFormData] = useState({
@@ -225,193 +226,170 @@ function VolunteerPage() {
             </section>
 
             {/* Main Content Section */}
-            <section className="py-20 relative" id="volunteer-form">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <section className="py-24 relative overflow-hidden" id="volunteer-form">
+                {/* Decorative background elements */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-amber-50"></div>
+                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-orange-200/30 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-200/30 to-transparent rounded-full blur-3xl"></div>
+                
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-16 items-start">
                         {/* Left Column - Enhanced Info */}
-                        <div className="space-y-10">
-                            <div className="space-y-8">
-                                <div className="inline-flex items-center bg-gradient-to-r from-orange-100 to-amber-100 rounded-full px-6 py-2">
-                                    <span className="text-orange-600 font-semibold">🌟 JOIN OUR MISSION</span>
+                        <ScrollAnimate animation="fade-right">
+                        <div className="space-y-10 lg:sticky lg:top-32">
+                            <div className="space-y-6">
+                                <div className="inline-flex items-center bg-gradient-to-r from-orange-100 to-amber-100 rounded-full px-6 py-2.5 shadow-sm">
+                                    <span className="text-orange-600 font-semibold text-sm tracking-wide">🐾 JOIN OUR PACK</span>
                                 </div>
                                 
                                 <h2 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
-                                    Transform Lives Through
+                                    Every Paw Needs a
                                     <span className="block text-transparent bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text">
-                                        Volunteering
+                                        Helping Hand
                                     </span>
                                 </h2>
+                                <p className="text-lg text-gray-600 leading-relaxed">
+                                    Be part of Nagpur's biggest street dog welfare movement. 
+                                    Your time and compassion can save lives.
+                                </p>
                             </div>
 
-                            <div className="space-y-8">
-                                <div className="group flex items-start space-x-6 p-6 rounded-2xl hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-all duration-300">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                        <Users className="w-8 h-8 text-white" />
+                            <div className="space-y-5">
+                                <div className="group flex items-start space-x-5 p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-200 transition-all duration-300">
+                                    <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-200/50">
+                                        <Heart className="w-7 h-7 text-white" />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-semibold text-gray-800 mb-2">Build Community</h3>
-                                        <p className="text-gray-600 text-lg leading-relaxed">
-                                            Together, we help build community connections that create a more humane world. Join us today in giving your free time and making lasting friendships.
+                                        <h3 className="text-lg font-bold text-gray-800 mb-1">Rescue & Rehabilitate</h3>
+                                        <p className="text-gray-600 leading-relaxed">
+                                            Help rescue injured and abandoned dogs from the streets. Your hands can heal wounded paws.
                                         </p>
                                     </div>
                                 </div>
 
-                                <div className="group flex items-start space-x-6 p-6 rounded-2xl hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-all duration-300">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                        <Globe className="w-8 h-8 text-white" />
+                                <div className="group flex items-start space-x-5 p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-200 transition-all duration-300">
+                                    <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-200/50">
+                                        <Users className="w-7 h-7 text-white" />
                                     </div>
                                     <div>
-                                        <h3 className="text-xl font-semibold text-gray-800 mb-2">Global Impact</h3>
-                                        <p className="text-gray-600 text-lg leading-relaxed">
-                                            If you have a passion for making a difference and giving back to your community, we want to share our mission with everyone who wants to create positive change.
+                                        <h3 className="text-lg font-bold text-gray-800 mb-1">Community Drives</h3>
+                                        <p className="text-gray-600 leading-relaxed">
+                                            Join feeding drives, water pot distributions, and radium belt campaigns across Nagpur.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="group flex items-start space-x-5 p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-orange-100 shadow-sm hover:shadow-lg hover:border-orange-200 transition-all duration-300">
+                                    <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-200/50">
+                                        <Globe className="w-7 h-7 text-white" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-bold text-gray-800 mb-1">Spread Awareness</h3>
+                                        <p className="text-gray-600 leading-relaxed">
+                                            Educate others about animal welfare and build a kinder, more compassionate Nagpur.
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        </ScrollAnimate>
 
                         {/* Right Column - Enhanced Form */}
-                 <div className="relative">
-        <div className="absolute -top-4 -left-4 w-72 h-72 bg-gradient-to-br from-orange-200 to-amber-200 rounded-full opacity-20 blur-3xl"></div>
-        <div className="relative glass-solid p-8">
-            <div className="text-center mb-8">
-                <h3 className="text-3xl font-bold text-gray-800 mb-2">Apply Now</h3>
-                <p className="text-gray-600">Start your volunteering journey with us</p>
-            </div>
+                        <ScrollAnimate animation="fade-left" delay={200}>
+                        <div className="relative">
+                            <div className="absolute -top-6 -left-6 w-72 h-72 bg-gradient-to-br from-orange-200 to-amber-200 rounded-full opacity-20 blur-3xl"></div>
+                            <div className="absolute -bottom-6 -right-6 w-56 h-56 bg-gradient-to-tl from-orange-300 to-amber-100 rounded-full opacity-15 blur-3xl"></div>
+                            <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl shadow-orange-100/50 border border-orange-100/50">
+                                <div className="text-center mb-8">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg shadow-orange-300/40 rotate-3 hover:rotate-0 transition-transform duration-300">
+                                        <Sparkles className="w-8 h-8 text-white" />
+                                    </div>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Become a Volunteer</h3>
+                                    <p className="text-gray-500">Join 150+ passionate dog lovers making a difference</p>
+                                </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Full Name */}
-                <div className="group">
-                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 glass-input"
-                        placeholder="Enter your full name"
-                        required
-                    />
+                                <form onSubmit={handleSubmit} className="space-y-5">
+                                    {/* Full Name */}
+                                    <div>
+                                        <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1.5">Full Name</label>
+                                        <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange}
+                                            className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none"
+                                            placeholder="Enter your full name" required />
+                                    </div>
+
+                                    {/* Email & Phone in 2 columns */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5">Email Address</label>
+                                            <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange}
+                                                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none"
+                                                placeholder="your@email.com" required />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-1.5">Phone Number</label>
+                                            <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange}
+                                                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none"
+                                                placeholder="+91 9876543210" required />
+                                        </div>
+                                    </div>
+
+                                    {/* Address */}
+                                    <div>
+                                        <label htmlFor="address" className="block text-sm font-semibold text-gray-700 mb-1.5">Street Address</label>
+                                        <textarea id="address" name="address" value={formData.address} onChange={handleInputChange} rows={2}
+                                            className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none resize-none"
+                                            placeholder="House No., Street, Area" required></textarea>
+                                    </div>
+
+                                    {/* City & State in 2 columns */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label htmlFor="city" className="block text-sm font-semibold text-gray-700 mb-1.5">City</label>
+                                            <input type="text" id="city" name="city" value={formData.city} onChange={handleInputChange}
+                                                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none"
+                                                placeholder="Your city" required />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="state" className="block text-sm font-semibold text-gray-700 mb-1.5">State</label>
+                                            <input type="text" id="state" name="state" value={formData.state} onChange={handleInputChange}
+                                                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none"
+                                                placeholder="Your state" required />
+                                        </div>
+                                    </div>
+
+                                    {/* Country & Pincode in 2 columns */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label htmlFor="country" className="block text-sm font-semibold text-gray-700 mb-1.5">Country</label>
+                                            <input type="text" id="country" name="country" value={formData.country} onChange={handleInputChange}
+                                                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none"
+                                                placeholder="Your country" required />
+                                        </div>
+                                        <div>
+                                            <label htmlFor="pincode" className="block text-sm font-semibold text-gray-700 mb-1.5">Pincode</label>
+                                            <input type="text" id="pincode" name="pincode" value={formData.pincode} onChange={handleInputChange}
+                                                className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 focus:bg-white focus:border-orange-400 focus:ring-4 focus:ring-orange-100 transition-all duration-300 outline-none"
+                                                placeholder="Zip code" required />
+                                        </div>
+                                    </div>
+
+                                    {/* Submit Button */}
+                                    <button type="submit"
+                                        className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white py-4 px-8 rounded-xl font-bold text-lg shadow-xl shadow-orange-200/50 transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2">
+                                        <Heart className="w-5 h-5" />
+                                        Submit Application
+                                        <ArrowRight className="w-5 h-5" />
+                                    </button>
+                                </form>
+
+                                <p className="text-center text-sm text-gray-400 mt-4">
+                                    We'll get back to you within 24 hours 💌
+                                </p>
+                            </div>
+                        </div>
+                        </ScrollAnimate>
+                    </div>
                 </div>
-
-                {/* Email */}
-                <div className="group">
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 glass-input"
-                        placeholder="your.email@example.com"
-                        required
-                    />
-                </div>
-
-                {/* Phone Number */}
-                <div className="group">
-                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 glass-input"
-                        placeholder="+91 9876543210"
-                        required
-                    />
-                </div>
-
-                {/* Address */}
-                <div className="group">
-                    <label htmlFor="address" className="block text-sm font-semibold text-gray-700 mb-2">Street Address</label>
-                    <textarea
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleInputChange}
-                        rows={3}
-                        className="w-full px-6 py-4 glass-input resize-none"
-                        placeholder="House No., Street, Area"
-                        required
-                    ></textarea>
-                </div>
-
-                {/* City */}
-                <div className="group">
-                    <label htmlFor="city" className="block text-sm font-semibold text-gray-700 mb-2">City</label>
-                    <input
-                        type="text"
-                        id="city"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 glass-input"
-                        placeholder="Your city"
-                        required
-                    />
-                </div>
-
-                {/* State */}
-                <div className="group">
-                    <label htmlFor="state" className="block text-sm font-semibold text-gray-700 mb-2">State</label>
-                    <input
-                        type="text"
-                        id="state"
-                        name="state"
-                        value={formData.state}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 glass-input"
-                        placeholder="Your state"
-                        required
-                    />
-                </div>
-
-                {/* Country */}
-                <div className="group">
-                    <label htmlFor="country" className="block text-sm font-semibold text-gray-700 mb-2">Country</label>
-                    <input
-                        type="text"
-                        id="country"
-                        name="country"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 glass-input"
-                        placeholder="Your country"
-                        required
-                    />
-                </div>
-
-                {/* Pincode */}
-                <div className="group">
-                    <label htmlFor="pincode" className="block text-sm font-semibold text-gray-700 mb-2">Pincode/Zip Code</label>
-                    <input
-                        type="text"
-                        id="pincode"
-                        name="pincode"
-                        value={formData.pincode}
-                        onChange={handleInputChange}
-                        className="w-full px-6 py-4 glass-input"
-                        placeholder="Your pincode or zip code"
-                        required
-                    />
-                </div>
-
-                {/* Submit Button */}
-                <button
-                    type="submit"
-                    className="w-full glass-btn text-white py-5 px-8 font-semibold text-lg transform"
-                >
-                    Submit Application
-                </button>
-            </form>
-        </div>
-    </div>
-    </div>
-    </div>
             </section>
 
             {/* Enhanced Photo Gallery Section */}
@@ -422,6 +400,7 @@ function VolunteerPage() {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+                    <ScrollAnimate animation="fade-up">
                     <div className="text-center mb-20">
                         <div className="inline-flex items-center bg-white rounded-full px-6 py-2 mb-6 shadow-lg">
                             <span className="text-orange-600 font-semibold">📸 GALLERY</span>
@@ -436,6 +415,7 @@ function VolunteerPage() {
                             Capturing the joy and impact our volunteers create through shared moments of kindness and community
                         </p>
                     </div>
+                    </ScrollAnimate>
 
                     {/* Enhanced Photo Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
