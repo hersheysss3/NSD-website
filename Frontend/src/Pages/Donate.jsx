@@ -191,123 +191,6 @@ const Donate = () => {
     }
   };
 
-  const PaymentStatusModal = ({ status, onClose }) => {
-    if (!status) return null;
-
-    return (
-      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4" onClick={onClose}>
-        <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center" onClick={(e) => e.stopPropagation()}>
-          {status === 'success' ? (
-            <>
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Check className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-green-600 mb-2">Payment Successful!</h3>
-              <p className="text-gray-600 mb-6">Thank you for your generous donation. Your contribution will help make a real difference.</p>
-            </>
-          ) : (
-            <>
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <X className="w-8 h-8 text-red-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-red-600 mb-2">Payment Failed</h3>
-              <p className="text-gray-600 mb-6">Something went wrong with your payment. Please try again.</p>
-            </>
-          )}
-          <button
-            onClick={onClose}
-            className="bg-gradient-to-r from-[#FF7A00] to-[#FF9E45] text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  const DonorDetailsModal = ({ show, onClose }) => {
-    if (!show) return null;
-
-    return (
-      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4" onClick={onClose}>
-        <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
-          <h3 className="text-2xl font-bold text-[#E15519] mb-6 text-center">Donor Details</h3>
-          
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-              <input
-                type="text"
-                name="name"
-                autoFocus
-                value={donorDetails.name}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
-                placeholder="Enter your full name"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-              <input
-                type="email"
-                name="email"
-                value={donorDetails.email}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
-                placeholder="Enter your email"
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-              <input
-                type="tel"
-                name="phone"
-                value={donorDetails.phone}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
-                placeholder="Enter your phone number"
-              />
-            </div>
-            
-            <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-medium text-gray-700">Amount:</span>
-                <span className="text-2xl font-bold text-[#E15519]">₹{getCurrentAmount()}</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex gap-4 mt-6">
-            <button
-              onClick={onClose}
-              className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-all"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handlePayment}
-              disabled={isLoading}
-              className="flex-1 bg-gradient-to-r from-[#FF7A00] to-[#FF9E45] text-white py-3 rounded-xl font-semibold disabled:opacity-50 flex items-center justify-center gap-2 hover:shadow-lg transition-all"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                <>
-                  <CreditCard className="w-4 h-4" />
-                  Pay Now
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div style={{ 
@@ -498,8 +381,115 @@ const Donate = () => {
       </section>
 
       {/* Modals */}
-      <DonorDetailsModal show={showForm} onClose={() => setShowForm(false)} />
-      <PaymentStatusModal status={paymentStatus} onClose={() => setPaymentStatus(null)} />
+      {showForm && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4" onClick={() => setShowForm(false)}>
+          <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-2xl font-bold text-[#E15519] mb-6 text-center">Donor Details</h3>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  autoFocus
+                  value={donorDetails.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={donorDetails.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
+                  placeholder="Enter your email"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={donorDetails.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              
+              <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-medium text-gray-700">Amount:</span>
+                  <span className="text-2xl font-bold text-[#E15519]">₹{getCurrentAmount()}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex gap-4 mt-6">
+              <button
+                onClick={() => setShowForm(false)}
+                className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handlePayment}
+                disabled={isLoading}
+                className="flex-1 bg-gradient-to-r from-[#FF7A00] to-[#FF9E45] text-white py-3 rounded-xl font-semibold disabled:opacity-50 flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="w-4 h-4" />
+                    Pay Now
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {paymentStatus && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4" onClick={() => setPaymentStatus(null)}>
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center" onClick={(e) => e.stopPropagation()}>
+            {paymentStatus === 'success' ? (
+              <>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-green-600 mb-2">Payment Successful!</h3>
+                <p className="text-gray-600 mb-6">Thank you for your generous donation. Your contribution will help make a real difference.</p>
+              </>
+            ) : (
+              <>
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <X className="w-8 h-8 text-red-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-red-600 mb-2">Payment Failed</h3>
+                <p className="text-gray-600 mb-6">Something went wrong with your payment. Please try again.</p>
+              </>
+            )}
+            <button
+              onClick={() => setPaymentStatus(null)}
+              className="bg-gradient-to-r from-[#FF7A00] to-[#FF9E45] text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
