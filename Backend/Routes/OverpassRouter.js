@@ -9,16 +9,24 @@ router.get('/vet-clinics', async (req, res) => {
     const { lat, lng, radius } = req.query;
     const latitude = lat || 21.1458;
     const longitude = lng || 79.0882;
-    const searchRadius = radius || 15000;
+    const searchRadius = radius || 25000;
 
     const query = `
-      [out:json][timeout:25];
+      [out:json][timeout:30];
       (
         node["amenity"="veterinary"](around:${searchRadius},${latitude},${longitude});
         way["amenity"="veterinary"](around:${searchRadius},${latitude},${longitude});
         relation["amenity"="veterinary"](around:${searchRadius},${latitude},${longitude});
         node["amenity"="animal_hospital"](around:${searchRadius},${latitude},${longitude});
+        way["amenity"="animal_hospital"](around:${searchRadius},${latitude},${longitude});
+        node["amenity"="animal_shelter"](around:${searchRadius},${latitude},${longitude});
+        way["amenity"="animal_shelter"](around:${searchRadius},${latitude},${longitude});
+        node["amenity"="animal_boarding"](around:${searchRadius},${latitude},${longitude});
+        way["amenity"="animal_boarding"](around:${searchRadius},${latitude},${longitude});
+        node["healthcare"="veterinary"](around:${searchRadius},${latitude},${longitude});
+        way["healthcare"="veterinary"](around:${searchRadius},${latitude},${longitude});
         node["shop"="pet"](around:${searchRadius},${latitude},${longitude});
+        way["shop"="pet"](around:${searchRadius},${latitude},${longitude});
       );
       out center;
     `;

@@ -99,7 +99,7 @@ const MapComponent = () => {
 
         // Fetch vet clinics from Overpass (via backend proxy)
         const vetResponse = await fetch(
-          `${backendUrl}/api/overpass/vet-clinics?lat=${lat}&lng=${lng}&radius=15000`
+          `${backendUrl}/api/overpass/vet-clinics?lat=${lat}&lng=${lng}&radius=25000`
         );
 
         if (!vetResponse.ok) throw new Error('Failed to fetch vet clinics');
@@ -122,8 +122,8 @@ const MapComponent = () => {
             {
               _id: '1',
               name: 'Max',
-              lat: 21.15,
-              lng: 79.095,
+              lat: 21.1480,
+              lng: 79.0920,
               description: 'Golden Retriever, last seen near Central Avenue',
               contact: '+91 9876543213',
               dateLost: '2025-01-10',
@@ -131,8 +131,8 @@ const MapComponent = () => {
             {
               _id: '2',
               name: 'Bella',
-              lat: 21.135,
-              lng: 79.08,
+              lat: 21.1400,
+              lng: 79.0850,
               description: 'German Shepherd, friendly, wearing blue collar',
               contact: '+91 9876543214',
               dateLost: '2025-01-12',
