@@ -57,10 +57,12 @@ const Header = () => {
       {/* Shop Button + User Avatar + Hamburger */}
       <div className="flex items-center space-x-4">
         <a
-          href="#shop"
-          className="bg-blue-700 text-white px-5 py-2 rounded-full font-bold hover:bg-amber-800 transition"
+          href="https://whatsapp.com/channel/0029VatlZaQ2P59rLcuPt90o"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-600 text-white px-5 py-2 rounded-full font-bold hover:bg-green-700 transition"
         >
-          Shop
+          WhatsApp
         </a>
         
         {/* User Avatar/Login Button */}

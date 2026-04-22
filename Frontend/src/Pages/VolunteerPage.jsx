@@ -8,10 +8,11 @@ function VolunteerPage() {
         name: '',
         email: '',
         phone: '',
-        occupation: '',
-        dob: '',
         address: '',
-        message: ''
+        city: '',
+        state: '',
+        country: '',
+        pincode: ''
     });
 
     const handleInputChange = (e) => {

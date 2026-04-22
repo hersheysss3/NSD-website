@@ -515,13 +515,13 @@ function Home() {
                             Connect with like-minded animal lovers, get updates on rescues, and be part of our mission to create a better world for street animals.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            <a href="https://whatsapp.com/channel/0029VatlZaQ2P59rLcuPt90o" target="_blank" rel="noopener noreferrer" className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center transition-all duration-300 transform hover:scale-105 shadow-lg">
                                 <MessageCircle className="mr-3 w-6 h-6" />
                                 Join WhatsApp Community
-                            </button>
-                            <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl font-semibold transition-all duration-300">
-                                Follow on Social Media
-                            </button>
+                            </a>
+                            <a href="https://www.instagram.com/nagpur_street_dogs?igsh=MXdubWFuN2F6Z3ppeA==" target="_blank" rel="noopener noreferrer" className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center">
+                                Follow on Instagram
+                            </a>
                         </div>
                     </div>
                     </ScrollAnimate>
