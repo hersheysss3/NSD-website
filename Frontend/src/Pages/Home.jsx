@@ -464,16 +464,16 @@ function Home() {
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 mb-8">
-                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg" onClick={() => navigate('/donate')}>
                                     ₹150
                                 </button>
-                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg" onClick={() => navigate('/donate')}>
                                     ₹500
                                 </button>
-                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg" onClick={() => navigate('/donate')}>
                                     ₹1000
                                 </button>
-                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                <button className="bg-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg" onClick={() => navigate('/donate')}>
                                     ₹5000
                                 </button>
                             </div>

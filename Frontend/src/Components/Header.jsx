@@ -52,6 +52,7 @@ const Header = () => {
         <Link to="/maps" className="hover:text-orange-500">Maps</Link>
         <Link to="/founder" className="hover:text-orange-500">Founder</Link>
         <Link to="/ourTeam" className="hover:text-orange-500">Our Team</Link>
+        <a href="https://wooferzz.com/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500">Shop</a>
       </nav>
 
       {/* Shop Button + User Avatar + Hamburger */}
@@ -141,6 +142,7 @@ const Header = () => {
           <Link to="/maps" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Maps</Link>
           <Link to="/founder" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Founder</Link>
           <Link to="/ourTeam" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Our Team</Link>
+          <a href="https://wooferzz.com/" target="_blank" rel="noopener noreferrer" className="block hover:text-orange-500" onClick={() => setMenuOpen(false)}>Shop</a>
           
           {/* Mobile User Section */}
           {isAuthenticated() ? (
