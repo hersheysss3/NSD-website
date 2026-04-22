@@ -195,11 +195,11 @@ const Donate = () => {
     if (!status) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="glass-solid p-8 max-w-md w-full mx-4 text-center">
+      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4" onClick={onClose}>
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center" onClick={(e) => e.stopPropagation()}>
           {status === 'success' ? (
             <>
-              <div className="w-16 h-16 glass-solid bg-green-50/50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Check className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-2xl font-bold text-green-600 mb-2">Payment Successful!</h3>
@@ -207,7 +207,7 @@ const Donate = () => {
             </>
           ) : (
             <>
-              <div className="w-16 h-16 glass-solid bg-red-50/50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <X className="w-8 h-8 text-red-600" />
               </div>
               <h3 className="text-2xl font-bold text-red-600 mb-2">Payment Failed</h3>
@@ -216,7 +216,7 @@ const Donate = () => {
           )}
           <button
             onClick={onClose}
-            className="glass-btn text-white px-6 py-2"
+            className="bg-gradient-to-r from-[#FF7A00] to-[#FF9E45] text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all"
           >
             Close
           </button>
@@ -229,8 +229,8 @@ const Donate = () => {
     if (!show) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="glass-solid p-8 max-w-md w-full mx-4">
+      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4" onClick={onClose}>
+        <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl" onClick={(e) => e.stopPropagation()}>
           <h3 className="text-2xl font-bold text-[#E15519] mb-6 text-center">Donor Details</h3>
           
           <div className="space-y-4">
@@ -239,9 +239,10 @@ const Donate = () => {
               <input
                 type="text"
                 name="name"
+                autoFocus
                 value={donorDetails.name}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 glass-input"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
                 placeholder="Enter your full name"
               />
             </div>
@@ -253,7 +254,7 @@ const Donate = () => {
                 name="email"
                 value={donorDetails.email}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 glass-input"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
                 placeholder="Enter your email"
               />
             </div>
@@ -265,14 +266,14 @@ const Donate = () => {
                 name="phone"
                 value={donorDetails.phone}
                 onChange={handleInputChange}
-                className="w-full px-4 py-2 glass-input"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl bg-white text-gray-800 focus:border-orange-400 focus:ring-2 focus:ring-orange-200 focus:outline-none transition-all"
                 placeholder="Enter your phone number"
               />
             </div>
             
-            <div className="glass-solid p-4">
+            <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">Amount:</span>
+                <span className="text-lg font-medium text-gray-700">Amount:</span>
                 <span className="text-2xl font-bold text-[#E15519]">₹{getCurrentAmount()}</span>
               </div>
             </div>
@@ -281,14 +282,14 @@ const Donate = () => {
           <div className="flex gap-4 mt-6">
             <button
               onClick={onClose}
-              className="flex-1 glass-solid px-4 py-2 hover:bg-white/30"
+              className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-all"
             >
               Cancel
             </button>
             <button
               onClick={handlePayment}
               disabled={isLoading}
-              className="flex-1 glass-btn text-white py-2 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="flex-1 bg-gradient-to-r from-[#FF7A00] to-[#FF9E45] text-white py-3 rounded-xl font-semibold disabled:opacity-50 flex items-center justify-center gap-2 hover:shadow-lg transition-all"
             >
               {isLoading ? (
                 <>
@@ -450,13 +451,13 @@ const Donate = () => {
           </ScrollAnimate>
 
                     {/* Enhanced Photo Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
                         {/* Large featured photo */}
                         <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
                             <img
                                 src={volunteerPhotos[0]}
                                 alt="Featured volunteer moment"
-                                className="w-full h-full min-h-[300px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                                className="w-full h-full min-h-[200px] md:min-h-[300px] object-cover transition-transform duration-1000 group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
                             <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
@@ -471,7 +472,7 @@ const Donate = () => {
                 <img
                   src={photo}
                   alt={`Volunteer moment ${index + 1}`}
-                  className="w-full h-75 object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-36 md:h-75 object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
                   <Heart className="w-10 h-10 text-white fill-current" />
@@ -485,7 +486,7 @@ const Donate = () => {
                 <img
                   src={photo}
                   alt={`Volunteer moment ${index + 4}`}
-                  className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-32 md:h-48 object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-orange-600/80 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
                   <span className="text-white font-semibold text-center px-4">Making Impact Together</span>

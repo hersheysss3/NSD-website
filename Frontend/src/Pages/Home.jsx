@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Heart, Users, Globe, Menu, X, ArrowRight, ArrowLeft, Phone, MessageCircle, Award, Shield, PawPrint } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import ScrollAnimate from '../Animation/ScrollAnimate';
@@ -85,11 +85,6 @@ import volunteer12 from "/New photo/IMG-20250604-WA0140.jpg";
 import volunteer13 from "/New photo/IMG-20250604-WA0142.jpg";
 import volunteer14 from "/New photo/IMG-20250604-WA0148.jpg";
 
-// Partner Images
-import partner1 from "../assets/1.jpg";
-import partner2 from "../assets/2.jpg";
-import partner3 from "../assets/3.jpg";
-import partner4 from "../assets/4.jpg";
 
 // Animated stat card component
 const StatCard = ({ icon, end, suffix, label }) => {
@@ -111,6 +106,20 @@ function Home() {
     const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Detect mobile viewport
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Reset carousel position when switching between mobile/desktop
+    useEffect(() => {
+        setCurrentSlide(0);
+    }, [isMobile]);
 
     const heroImages = [
         {
@@ -176,8 +185,10 @@ function Home() {
     ];
 
     // --- Initiatives Carousel ---
-    const itemsPerSlide = 3;
-    const maxSlide = Math.max(0, initiatives.length - itemsPerSlide);
+    const itemsPerSlide = isMobile ? 1 : 3;
+    const maxSlide = isMobile 
+        ? initiatives.length - 1 
+        : Math.max(0, initiatives.length - itemsPerSlide);
 
     // Auto-slide for initiatives
     useEffect(() => {
@@ -202,6 +213,19 @@ function Home() {
             if (prev === 0) return maxSlide;
             return prev - 1;
         });
+    };
+
+    // Touch swipe support for mobile carousel
+    const touchStartX = useRef(0);
+    const touchEndX = useRef(0);
+    const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+    const handleTouchMove = (e) => { touchEndX.current = e.touches[0].clientX; };
+    const handleTouchEnd = () => {
+        const diff = touchStartX.current - touchEndX.current;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) nextSlide();
+            else prevSlide();
+        }
     };
 
     // Auto-slide for hero section
@@ -357,26 +381,34 @@ function Home() {
                     </ScrollAnimate>
 
                     <div className="relative">
-                        <div className="overflow-hidden rounded-3xl shadow-2xl">
+                        <div className="overflow-hidden rounded-3xl shadow-2xl"
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
+                        >
                             <div className="flex transition-transform duration-500 ease-in-out"
-                                style={{ transform: `translateX(-${currentSlide * (100 / 3)}%)` }}>
+                                style={{ transform: `translateX(-${currentSlide * (isMobile ? 100 : 100 / 3)}%)` }}>
                                 {initiatives.map((initiative, index) => (
                                     <div
                                         key={index}
-                                        className="w-full md:w-1/3 flex-shrink-0 relative px-2 group cursor-pointer"
+                                        className={`flex-shrink-0 relative px-2 group cursor-pointer ${isMobile ? 'w-full' : 'w-1/3'}`}
                                         style={{ zIndex: 1 }}
                                     >
                                         <img
                                             src={initiative.image}
                                             alt={initiative.title}
-                                            className="w-full h-96 md:h-[500px] object-cover rounded-2xl transition-all duration-500 group-hover:opacity-60"
+                                            className="w-full h-80 md:h-[500px] object-cover rounded-2xl transition-all duration-500 group-hover:opacity-60"
                                         />
-                                        <div className="absolute inset-0 rounded-2xl bg-black/40 flex flex-col justify-end items-start p-8 transition-all duration-500">
-                                            <h3 className="text-3xl font-bold mb-3 z-10 transition-all duration-500 group-hover:mb-0 text-orange-500 group-hover:text-orange-400 drop-shadow-lg">
+                                        <div className="absolute inset-0 rounded-2xl bg-black/40 flex flex-col justify-end items-start p-6 md:p-8 transition-all duration-500">
+                                            <h3 className="text-xl md:text-3xl font-bold mb-2 md:mb-3 z-10 transition-all duration-500 group-hover:mb-0 text-orange-500 group-hover:text-orange-400 drop-shadow-lg">
                                                 {initiative.title}
                                             </h3>
                                             <p
-                                                className="text-lg text-white opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-40 transition-all duration-500 overflow-hidden z-10"
+                                                className={`text-sm md:text-lg text-white z-10 overflow-hidden transition-all duration-500 ${
+                                                    isMobile
+                                                        ? 'opacity-100 max-h-40'
+                                                        : 'opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-40'
+                                                }`}
                                             >
                                                 {initiative.description}
                                             </p>
@@ -389,24 +421,24 @@ function Home() {
                         {/* Navigation Arrows */}
                         <button
                             onClick={prevSlide}
-                            className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/90 text-orange-500 p-4 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+                            className="absolute left-2 md:left-6 top-1/2 transform -translate-y-1/2 bg-white/90 text-orange-500 p-3 md:p-4 rounded-full hover:bg-white transition-all duration-300 shadow-lg z-10"
                         >
-                            <ArrowLeft className="w-6 h-6" />
+                            <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
                         </button>
                         <button
                             onClick={nextSlide}
-                            className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/90 text-orange-500 p-4 rounded-full hover:bg-white transition-all duration-300 shadow-lg"
+                            className="absolute right-2 md:right-6 top-1/2 transform -translate-y-1/2 bg-white/90 text-orange-500 p-3 md:p-4 rounded-full hover:bg-white transition-all duration-300 shadow-lg z-10"
                         >
-                            <ArrowRight className="w-6 h-6" />
+                            <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
                         </button>
 
                         {/* Dots Indicator */}
                         <div className="flex justify-center mt-8 space-x-3">
-                            {Array.from({ length: Math.ceil(initiatives.length / 3) }).map((_, index) => (
+                            {Array.from({ length: isMobile ? initiatives.length : Math.ceil(initiatives.length / 3) }).map((_, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => setCurrentSlide(index)}
-                                    className={`w-4 h-4 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-orange-500 w-8' : 'bg-gray-300 hover:bg-gray-400'
+                                    onClick={() => setCurrentSlide(isMobile ? index : index)}
+                                    className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${currentSlide === index ? 'bg-orange-500 w-6 md:w-8' : 'bg-gray-300 hover:bg-gray-400'
                                         }`}
                                 />
                             ))}
@@ -529,80 +561,51 @@ function Home() {
                 <ScrollAnimate animation="fade-up">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 text-center">Gallery</h2>
                 </ScrollAnimate>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-5 pb-16">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 p-2 md:p-5 pb-16">
                     {/* Large featured photo */}
-                    <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
+                    <div className="col-span-2 row-span-2 relative group overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-700">
                         <img
                             src={volunteerPhotos[0]}
                             alt="Featured volunteer moment"
-                            className="w-full h-full min-h-[450px] object-cover transition-transform duration-1000 group-hover:scale-110"
+                            className="w-full h-full min-h-[280px] md:min-h-[450px] object-cover transition-transform duration-1000 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-                        <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
-                            <h3 className="text-3xl font-bold text-white mb-3">Making Impact Together</h3>
-                            <p className="text-amber-200 text-lg"></p>
+                        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+                            <h3 className="text-xl md:text-3xl font-bold text-white mb-2 md:mb-3">Making Impact Together</h3>
                         </div>
                     </div>
 
                     {/* Medium photos */}
                     {volunteerPhotos.slice(1, 3).map((photo, index) => (
-                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500">
+                        <div key={index} className="relative group overflow-hidden rounded-xl md:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500">
                             <img
                                 src={photo}
                                 alt="Volunteer moment"
-                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                                className="w-full h-32 md:h-64 object-cover transition-transform duration-700 group-hover:scale-110"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-6">
-                                <Heart className="w-10 h-10 text-white fill-current" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-4 md:pb-6">
+                                <Heart className="w-6 h-6 md:w-10 md:h-10 text-white fill-current" />
                             </div>
                         </div>
                     ))}
 
                     {/* Small photos */}
                     {volunteerPhotos.slice(3, 13).map((photo, index) => (
-                        <div key={index} className="relative group overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500">
+                        <div key={index} className="relative group overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500">
                             <img
                                 src={photo}
                                 alt="Volunteer moment"
-                                className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                                className="w-full h-32 md:h-48 object-cover transition-transform duration-700 group-hover:scale-110"
                             />
                             <div className="absolute inset-0 bg-black/20 group-hover:bg-orange-600/80 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <span className="text-white font-semibold text-center px-4">Making Impact Together</span>
+                                <span className="text-white font-semibold text-center text-xs md:text-base px-2 md:px-4">Making Impact Together</span>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Our Partners Section */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-24">
-                <ScrollAnimate animation="fade-up">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-10 text-center">Our Partners</h2>
-                </ScrollAnimate>
-                <div className="flex flex-wrap justify-center gap-8 md:gap-16 items-center">
-                    {/* Partner logos using imported variables */}
-                    <ScrollAnimate animation="zoom-in" delay={0}>
-                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src={partner1} alt="Partner 1" className="object-contain w-20 h-20 rounded-full" />
-                    </div>
-                    </ScrollAnimate>
-                    <ScrollAnimate animation="zoom-in" delay={100}>
-                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src={partner2} alt="Partner 2" className="object-contain w-20 h-20 rounded-full" />
-                    </div>
-                    </ScrollAnimate>
-                    <ScrollAnimate animation="zoom-in" delay={200}>
-                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src={partner3} alt="Partner 3" className="object-contain w-20 h-20 rounded-full" />
-                    </div>
-                    </ScrollAnimate>
-                    <ScrollAnimate animation="zoom-in" delay={300}>
-                    <div className="bg-white rounded-full shadow-lg p-4 flex items-center justify-center w-32 h-32">
-                        <img src={partner4} alt="Partner 4" className="object-contain w-20 h-20 rounded-full" />
-                    </div>
-                    </ScrollAnimate>
-                </div>
-            </section>
+
 
         </div>
     );
