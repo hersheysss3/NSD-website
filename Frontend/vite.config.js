@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), tailwindcss()],
     define: {
       'import.meta.env.VITE_SERVER_DOMAIN': JSON.stringify(
-        env.VITE_SERVER_DOMAIN || 'https://nsd-backend-wooferz-v1234.onrender.com'
+        env.VITE_SERVER_DOMAIN || 'https://nsd-backend-8vtz.onrender.com'
       )
     }
   }

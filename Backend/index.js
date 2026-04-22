@@ -26,9 +26,10 @@ const app=express();
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://wooferz.onrender.com",
-  "https://nsd-backend-wooferz-v1234.onrender.com",
-  "https://nsd-website-oef9.vercel.app"
+  "https://nsd-website-oef9.vercel.app",
+  "https://www.nagpurstreetdog.org",
+  "https://nagpurstreetdog.org",
+  "https://nsd-backend-8vtz.onrender.com"
 ];
 
 app.use(cors({
