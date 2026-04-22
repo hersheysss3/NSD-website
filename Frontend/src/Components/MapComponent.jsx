@@ -97,55 +97,13 @@ const MapComponent = () => {
         const backendUrl = import.meta.env.VITE_SERVER_DOMAIN || 'http://localhost:8000';
         const [lat, lng] = userLocation || mapCenter;
 
-        // Fetch vet clinics directly from Overpass API (bypassing backend)
-        const searchRadius = 25000;
-        const query = `
-          [out:json][timeout:30];
-          (
-            node["amenity"="veterinary"](around:${searchRadius},${lat},${lng});
-            way["amenity"="veterinary"](around:${searchRadius},${lat},${lng});
-            node["amenity"="animal_hospital"](around:${searchRadius},${lat},${lng});
-            way["amenity"="animal_hospital"](around:${searchRadius},${lat},${lng});
-            node["amenity"="animal_shelter"](around:${searchRadius},${lat},${lng});
-            node["amenity"="animal_boarding"](around:${searchRadius},${lat},${lng});
-            node["healthcare"="veterinary"](around:${searchRadius},${lat},${lng});
-            node["shop"="pet"](around:${searchRadius},${lat},${lng});
-          );
-          out center;
-        `;
-        
-        const vetResponse = await fetch('https://overpass-api.de/api/interpreter', {
-          method: 'POST',
-          body: `data=${encodeURIComponent(query)}`,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json',
-          },
-        });
+        // Fetch vet clinics via backend proxy (Overpass API blocks direct browser CORS)
+        const vetResponse = await fetch(
+          `${backendUrl}/api/overpass/vet-clinics?lat=${lat}&lng=${lng}&radius=25000`
+        );
 
         if (!vetResponse.ok) throw new Error('Failed to fetch vet clinics');
-        const data = await vetResponse.json();
-        
-        const vetData = data.elements
-          .filter((element) => element.lat || (element.center && element.center.lat))
-          .map((element) => {
-            const elLat = element.lat || (element.center && element.center.lat) || lat;
-            const elLng = element.lon || (element.center && element.center.lon) || lng;
-            return {
-              _id: `osm_${element.type}_${element.id}`,
-              name: element.tags?.name || element.tags?.brand || 'Veterinary Clinic',
-              lat: elLat,
-              lng: elLng,
-              address: element.tags?.['addr:street']
-                ? `${element.tags['addr:street']} ${element.tags['addr:housenumber'] || ''}, ${element.tags['addr:city'] || 'Nagpur'}`
-                : 'Nagpur',
-              phone: element.tags?.phone || element.tags?.['contact:phone'] || null,
-              hours: element.tags?.opening_hours || null,
-              website: element.tags?.website || element.tags?.['contact:website'] || null,
-              type: 'vet',
-            };
-          });
-
+        const vetData = await vetResponse.json();
         if (cancelled) return;
         setVetClinics(vetData);
         toast.success(`Found ${vetData.length} vet clinics nearby!`, { icon: '🏥' });

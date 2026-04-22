@@ -55,8 +55,13 @@ app.use("/api/overpass", overpassRouter);
 
 
 // Get user profile
-app.get('/:userId', async (req, res) => {
+app.get('/:userId', async (req, res, next) => {
   try {
+    // Skip if userId is not a valid MongoDB ObjectId (prevents catching /blogs, /maps, etc.)
+    if (!req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+      return next();
+    }
+    
     const user = await User.findById(req.params.userId)
       .populate({
         path: 'dogsForAdoption',
