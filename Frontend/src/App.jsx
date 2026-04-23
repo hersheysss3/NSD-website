@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react'
 import { Routes, Route } from "react-router-dom"
+import ScrollToTop from './Components/ScrollToTop'
 import Layout from './Layout/Layout'
 import Home from './Pages/Home'
 import About from './Pages/About'
@@ -21,6 +22,8 @@ import ProtectedRoute from './Components/ProtectedRoute.jsx'
 
 function App() {
   return (
+    <>
+    <ScrollToTop />
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
@@ -54,6 +57,7 @@ function App() {
 
       <Route path="/dog/:id" element={<DogDetailsPage />} />
     </Routes>
+    </>
   );
 }
 
