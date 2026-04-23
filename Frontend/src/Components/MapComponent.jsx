@@ -97,46 +97,86 @@ const MapComponent = () => {
         const backendUrl = import.meta.env.VITE_SERVER_DOMAIN || 'http://localhost:8000';
         const [lat, lng] = userLocation || mapCenter;
 
-        // Fetch vet clinics via backend proxy (Overpass API blocks direct browser CORS)
-        const vetResponse = await fetch(
-          `${backendUrl}/api/overpass/vet-clinics?lat=${lat}&lng=${lng}&radius=25000`
-        );
+        let vetData = [];
 
-        if (!vetResponse.ok) throw new Error('Failed to fetch vet clinics');
-        const vetData = await vetResponse.json();
+        // Strategy: Try backend first (10s timeout), fallback to direct Overpass API
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 10000);
+          
+          const vetResponse = await fetch(
+            `${backendUrl}/api/overpass/vet-clinics?lat=${lat}&lng=${lng}&radius=25000`,
+            { signal: controller.signal }
+          );
+          clearTimeout(timeoutId);
+
+          if (!vetResponse.ok) throw new Error('Backend returned error');
+          vetData = await vetResponse.json();
+        } catch (backendErr) {
+          // Backend failed or timed out — fetch directly from Overpass API
+          console.log('Backend unavailable, fetching directly from Overpass API...');
+          const searchRadius = 25000;
+          const query = `
+            [out:json][timeout:30];
+            (
+              node["amenity"="veterinary"](around:${searchRadius},${lat},${lng});
+              way["amenity"="veterinary"](around:${searchRadius},${lat},${lng});
+              node["amenity"="animal_hospital"](around:${searchRadius},${lat},${lng});
+              way["amenity"="animal_hospital"](around:${searchRadius},${lat},${lng});
+              node["amenity"="animal_shelter"](around:${searchRadius},${lat},${lng});
+              node["amenity"="animal_boarding"](around:${searchRadius},${lat},${lng});
+              node["healthcare"="veterinary"](around:${searchRadius},${lat},${lng});
+              node["shop"="pet"](around:${searchRadius},${lat},${lng});
+            );
+            out center;
+          `;
+          
+          const overpassResponse = await fetch('https://overpass-api.de/api/interpreter', {
+            method: 'POST',
+            body: `data=${encodeURIComponent(query)}`,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          });
+
+          if (overpassResponse.ok) {
+            const data = await overpassResponse.json();
+            vetData = data.elements
+              .filter((el) => el.lat || (el.center && el.center.lat))
+              .map((el) => ({
+                _id: `osm_${el.type}_${el.id}`,
+                name: el.tags?.name || el.tags?.brand || 'Veterinary Clinic',
+                lat: el.lat || el.center?.lat || lat,
+                lng: el.lon || el.center?.lon || lng,
+                address: el.tags?.['addr:street']
+                  ? `${el.tags['addr:street']} ${el.tags['addr:housenumber'] || ''}, ${el.tags['addr:city'] || 'Nagpur'}`
+                  : 'Nagpur',
+                phone: el.tags?.phone || el.tags?.['contact:phone'] || null,
+                hours: el.tags?.opening_hours || null,
+                type: 'vet',
+              }));
+          }
+        }
+
         if (cancelled) return;
         setVetClinics(vetData);
-        toast.success(`Found ${vetData.length} vet clinics nearby!`, { icon: '🏥' });
+        if (vetData.length > 0) {
+          toast.success(`Found ${vetData.length} vet clinics nearby!`, { icon: '🏥' });
+        }
 
-        // Fetch lost dogs from backend
+        // Fetch lost dogs from backend (with fallback)
         try {
-          const lostResponse = await fetch(`${backendUrl}/api/lost-dogs`);
+          const lostController = new AbortController();
+          const lostTimeout = setTimeout(() => lostController.abort(), 8000);
+          const lostResponse = await fetch(`${backendUrl}/api/lost-dogs`, { signal: lostController.signal });
+          clearTimeout(lostTimeout);
           if (lostResponse.ok) {
             const lostData = await lostResponse.json();
             if (cancelled) return;
             setLostDogs(lostData);
           }
         } catch {
-          // Use fallback if lost dogs fetch fails
           setLostDogs([
-            {
-              _id: '1',
-              name: 'Max',
-              lat: 21.1480,
-              lng: 79.0920,
-              description: 'Golden Retriever, last seen near Central Avenue',
-              contact: '+91 9876543213',
-              dateLost: '2025-01-10',
-            },
-            {
-              _id: '2',
-              name: 'Bella',
-              lat: 21.1400,
-              lng: 79.0850,
-              description: 'German Shepherd, friendly, wearing blue collar',
-              contact: '+91 9876543214',
-              dateLost: '2025-01-12',
-            },
+            { _id: '1', name: 'Max', lat: 21.1480, lng: 79.0920, description: 'Golden Retriever, last seen near Central Avenue', contact: '+91 9876543213', dateLost: '2025-01-10' },
+            { _id: '2', name: 'Bella', lat: 21.1400, lng: 79.0850, description: 'German Shepherd, friendly, wearing blue collar', contact: '+91 9876543214', dateLost: '2025-01-12' },
           ]);
         }
 
@@ -145,9 +185,9 @@ const MapComponent = () => {
       } catch (err) {
         if (cancelled) return;
         console.error('Error fetching map data:', err);
-        setError(err.message);
+        // Even if everything fails, show the map without markers instead of an error
         setLoading(false);
-        toast.error('Failed to load vet clinics');
+        toast.error('Could not load nearby clinics. Please try again.');
       }
     };
 
